@@ -6,8 +6,6 @@ data:
   item_props_part2_path: "data/raw/item_properties_part2.csv"
   category_tree_path:    "data/raw/category_tree.csv"
 
-  # ── Memory-safe loading ────────────────────────────────────────────────────
-  # events.csv ~2.7M rows; safe to load whole but chunk props files (~800MB)
   props_chunk_size: 200_000
 
   # ── Processed artefacts ───────────────────────────────────────────────────
