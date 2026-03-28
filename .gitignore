@@ -1,0 +1,22 @@
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+
+# Local runtime files
+.uvicorn.pid
+
+# Training artefacts and datasets
+*.npy
+*.pt
+*.faiss
+*.parquet
+*.csv
