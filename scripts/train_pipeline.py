@@ -1,4 +1,3 @@
-import argparse
 import logging
 import subprocess
 import sys
@@ -26,29 +25,14 @@ def run(name: str, module: str, extra: list = None) -> float:
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--skip-preprocess",  action="store_true",
-                        help="Skip preprocessing (data/processed/ already exists)")
-    parser.add_argument("--skip-retrieval",   action="store_true",
-                        help="Skip Two-Tower training and FAISS index building")
-    parser.add_argument("--skip-ranking",     action="store_true",
-                        help="Skip user embedding generation and DeepFM training")
-    args = parser.parse_args()
-
     t_start = time.perf_counter()
 
-    if not args.skip_preprocess:
-        run("Data preprocessing",         "data.preprocess")
-
-    if not args.skip_retrieval:
-        run("Two-Tower training",          "retrieval.train_two_tower")
-        run("Embedding normalisation",     "retrieval.export_embeddings", ["--normalize"])
-        run("FAISS index building",        "faiss_index.build_index")
-
-    if not args.skip_ranking:
-        run("User emb + DeepFM training",  "ranking.train_ranker")
-
-    run("Evaluation",                      "evaluation.evaluate")
+    run("Data preprocessing",         "data.preprocess")
+    run("Two-Tower training",         "retrieval.train_two_tower")
+    run("Embedding normalisation",    "retrieval.export_embeddings", ["--normalize"])
+    run("FAISS index building",       "faiss_index.build_index")
+    run("User emb + DeepFM training", "ranking.train_ranker")
+    run("Evaluation",                 "evaluation.evaluate")
 
     total = time.perf_counter() - t_start
     log.info("=" * 60)
